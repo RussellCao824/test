@@ -1,2 +1,2 @@
-ccdcdcd
-sffdfc
+<?php
+    echo phpinfo();
