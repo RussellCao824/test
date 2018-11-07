@@ -1,4 +1,5 @@
 <?php
+//曹振南正在研究
 //生成的html页面乱码，强制将返回页面信息编码转化为UTF-8
 header("Content-Type:text/html;charset=utf-8");
 
