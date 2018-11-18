@@ -42,3 +42,35 @@ echo($redis->sAdd("room","xiaoji","Russell","yuanyuan"));//redis在Php中的命�
         echo "Russell is a GOD";
     }
     print_r($redis->sGetMembers("room"));
+
+    //set的集合操作
+    echo "<br><br>set的集合操作<br><br>";
+    $redis->sAdd("set1","a","b",1,2);
+    $redis->sAdd("set2","a","b");
+    $redis->sAdd("set3",1);
+
+    //求集合与其他集合的差集
+    print_r($redis->sDiff("set1","set2","set3"));
+
+    //截取并获得一个集合与其他集合的差集
+    echo "<br><br>截取并获得一个集合与其他集合的差集<br>";
+    $redis->sDiffStore("set4","set1","set2","set3");
+    print_r($redis->sGetMembers("set4"));
+
+    //求多个集合之间的交集
+    echo "<br><br>求多个集合之间的交集<br>";
+    print_r($redis->sInter("set1","set4"));
+
+    //同理，将多个集合之间的交集截取下来
+    echo "<br><br>求多个集合之间的交集,并截取下来<br>";
+    $redis->sInterStore("setInter","set1","set2");
+    print_r($redis->sGetMembers("setInter"));
+
+    //求同个集合的并集
+    echo "<br><br>求同个集合的并集<br>";
+    print_r($redis->sUnion("set2","set3"));
+
+    //同理，将多个集合之间的并集截取下来
+    echo "<br><br>求同个集合的并集，并截取下来<br>";
+    $redis->sUnionStore("setUnion","set2","set3");
+    print_r($redis->sGetMembers("setUnion"));
