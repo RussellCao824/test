@@ -74,3 +74,25 @@ echo($redis->sAdd("room","xiaoji","Russell","yuanyuan"));//redis在Php中的命�
     echo "<br><br>求同个集合的并集，并截取下来<br>";
     $redis->sUnionStore("setUnion","set2","set3");
     print_r($redis->sGetMembers("setUnion"));
+
+
+    /**
+     * 散列 hash
+     */
+    $redis->hSet("student","id",1);
+    $redis->hSet("student","name","Russell");
+    $redis->hSet("student","age",26);
+    //获取散列中的所有键值对
+    echo "<br><br>打印所有的哈希表键值对<br>";
+    print_r($redis->hGetAll("student"));
+    echo "<br><br>打印哈希表中的某个键值对<br>";
+    print_r($redis->hGet("student","name"));
+    echo "<br><br>批量删除哈希表中的键值对<br>";
+    echo $redis->hDel("student","age");
+    print_r($redis->hGetAll("student"));
+    echo "<br><br>获取哈希表的键的数量<br>";
+    echo $redis->hLen("student");
+    //在php中批量设置hash表的键值对
+    echo "<br><br>在php中批量设置hash表的键值对<br>";
+    $redis->hMset("student",["grade"=>2,"score"=>98,"sex"=>"男"]);
+    print_r($redis->hGetAll("student"));
