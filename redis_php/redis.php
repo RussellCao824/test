@@ -96,3 +96,21 @@ echo($redis->sAdd("room","xiaoji","Russell","yuanyuan"));//redis在Php中的命�
     echo "<br><br>在php中批量设置hash表的键值对<br>";
     $redis->hMset("student",["grade"=>2,"score"=>98,"sex"=>"男"]);
     print_r($redis->hGetAll("student"));
+    echo "<br><br>判断某个键是否存在于某个散列中<br>";
+    $key = "grade";
+    if($redis->hExists("student",$key)){
+        echo $key."存在于student散列表中";
+    }
+    echo "<br><br>获取散列表所有的键<br>";
+    print_r($redis->hKeys("student"));
+    echo "<br><br>获取散列表中的所有值<br>";
+    print_r($redis->hVals("student"));
+    echo "<br><br>获取散列表中的所有键值对<br>";
+    print_r($redis->hGetAll("student"));
+    echo "<br><br>将散列中的某个key的存值加上某个整数<br>";
+    $redis->hIncrBy("student","score",10);
+    echo $redis->hGet("student","score");
+    echo "<br><br>在php中批量设置hash表的键值对<br>";
+    $redis->hIncrByFloat("student","score",10.23);
+    echo $redis->hGet("student","score");
+
