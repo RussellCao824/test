@@ -72,17 +72,25 @@ class Queue
     /**
      * 入队
      */
-    public function push()
+    public function push($element)
     {
-
+        if(isset($element)){
+            return false;
+        }
+        array_push($this->queue,$element);
+        return true;
     }
 
     /**
-     * 出队
+     * 出队第一个元素
      */
     public function pull()
     {
-
+        if($this->queueLength == 0){
+            return false;
+        }
+        //对于键名是递增数字的数组，array_shift($array）删除第一个元素，并且剩下元素的键名都会重新排列，并返回删除的值
+        return array_shift($this->queue[0]);
     }
 
     /**
@@ -90,7 +98,7 @@ class Queue
      */
     public function getFront()
     {
-
+        if()
     }
 
     /**
