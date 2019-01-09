@@ -199,3 +199,101 @@ var_dump((unserialize(serialize($test))->name));
 echo $test;
 
 $test(4);
+
+
+/**
+ * 12.php中的单例模式
+ * 注意在php中实现单例模式类的四大注意点:
+ * 1.要有一个静态方法来作为该单例类的初始化入口,其中判断是否已经生辰有该类的对象
+ * 2,与1对应,应有一个静态属性来存储该单例类已经初始化后的对象.
+ * 3.应显式的声明私有权限的构造函数,防止单例类被随意实例化
+ * 4.应显式的声明私有权限的克隆调用函数(__clone),防止单列对象被随意克隆
+ */
+class SingleInstance
+{
+    public static $instance;
+    public static $isInstance = 'uninstance';
+    /**
+     * 单例模式中要显示的设置该单例类的构造函数为private,能够有效防止类被随意实例化(如果显式声明了构造函数,则类在初始化的时候会自动调用构造函数,若因为权限问题,构造函数调用失败,则对象的初始化也会失败)
+     * singleInstance constructor.
+     */
+    private function __construct()
+    {
+
+    }
+
+    /**
+     * 单例模式中要显示的设置该单例类的clone函数为private,能够有效防止类被随意克隆(因为每次克隆产生的新对象,如果该对象类中有__clone方法,则会执行,注意__clone必须为public,否则会调用出错,导致克隆失败)
+     */
+    private function __clone()
+    {
+
+    }
+
+    public static function getInstance()
+    {
+        $class = __CLASS__;
+        if(!(self::$instance instanceof $class)) {
+            self::$instance = new self();
+            //判断是否第二次实例化了该类
+            self::$isInstance = 'instanced';
+        }
+        echo 'the class is instanced before:'.self::$isInstance;
+        return self::$instance;
+    }
+
+    public function test()
+    {
+        echo 'haha';
+    }
+}
+
+$single = SingleInstance::getInstance();
+$single->test();
+$single1 = SingleInstance::getInstance();
+$single1->test();
+
+
+/**
+ *13.php实现工厂模式
+ * 工厂模式主要针对与一些都使用了同一批interface的类进行分类初始化的操作,增加了程序的可维护性.在一个专门的类中,通过传入不同的参数,对于不同的类进行初始化
+ */
+interface getType
+{
+    public function getInfo();
+}
+
+class TestA implements getType
+{
+    public function getInfo()
+    {
+        echo 'this is class TestA';
+    }
+}
+
+class TestB implements getType
+{
+    public function getInfo()
+    {
+        echo 'this is class TestB';
+    }
+}
+
+class TestFactory
+{
+
+    public function factory($type)
+    {
+        $className = 'Test'.$type;
+        //class_exists()判断一个类是否已经定义过(一个类是否存在)
+        if(class_exists($className)){
+            return new $className;
+        }else{
+            throw new ErrorException('the class does not exists');
+        }
+    }
+}
+
+$factory = new TestFactory();
+$test = $factory->factory('B');
+$test->getInfo();
