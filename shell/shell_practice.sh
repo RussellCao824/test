@@ -242,24 +242,51 @@ EOF
     shell函数的参数不用声明,直接在调用函数时传递,和向脚本传参和调用的方式一样
 EOF
 
-function test()
-{
-    #$1为该函数的第一个参数
-    echo $1
-}
-#调用函数时进行传参
-test 2
+#function test()
+#{
+#    #$1为该函数的第一个参数
+#    echo $1
+#}
+##调用函数时进行传参
+#test 2
+#
+##连接连个字符串,(直接连续输出两个变量,无空格)
+#str1="my"
+#str2="baby"
+#echo $str1$str2
+#
+##进行两个整数的四则运算(shell中该方法不适用于浮点数的运算)
+#num1=9
+#num2=3
+#echo $[$num1+$num2]
+#echo $[$num1-$num2]
+#echo $[$num1*$num2]
+#echo $[$num1/$num2]
 
-#连接连个字符串,(直接连续输出两个变量,无空格)
-str1="my"
-str2="baby"
-echo $str1$str2
 
-#进行两个整数的四则运算(shell中该方法不适用于浮点数的运算)
-num1=9
-num2=3
-echo $[$num1+$num2]
-echo $[$num1-$num2]
-echo $[$num1*$num2]
-echo $[$num1/$num2]
+:<<EOF
+练习十二
+    写出shell中所有的循环结构
+EOF
 
+for i in `seq 1 10`
+do
+    echo $i
+done
+
+j=5
+#注意while循环条件是两层括号
+while (($j>0))
+do
+    echo $j
+    #注意使shell变量自增或自减用let关键字
+    let "j--"
+done
+
+#until操作和while一样
+m=1
+until (($m==5))
+do
+    echo $m
+    let "m++"
+done
