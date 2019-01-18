@@ -269,24 +269,60 @@ EOF
     写出shell中所有的循环结构
 EOF
 
-for i in `seq 1 10`
-do
-    echo $i
-done
+#for i in `seq 1 10`
+#do
+#    echo $i
+#done
+#
+#j=5
+##注意while循环条件是两层括号
+#while (($j>0))
+#do
+#    echo $j
+#    #注意使shell变量自增或自减用let关键字
+#    let "j--"
+#done
+#
+##until操作和while一样
+#m=1
+#until (($m==5))
+#do
+#    echo $m
+#    let "m++"
+#done
 
-j=5
-#注意while循环条件是两层括号
-while (($j>0))
-do
-    echo $j
-    #注意使shell变量自增或自减用let关键字
-    let "j--"
-done
 
-#until操作和while一样
-m=1
-until (($m==5))
-do
-    echo $m
-    let "m++"
-done
+:<<EOF
+练习十二
+    判断某文件是否存在
+EOF
+#使用命令[ -d dictionary ] 或者 [ -f file ] 来判断目录或者文件是否存在
+#
+#if [ -f /var/index1.html ]
+#then
+#echo "the file exist"
+#else
+#echo "the file doesn't exists"
+#fi
+#
+##如何获取文件的第10行数据 /etc/passwd
+#echo `head -10 /etc/passwd | tail -1`
+#
+#name=cao && echo "my name is $name"
+
+:<<EOF
+练习十二
+    流的重定向
+EOF
+#将标准输出信息和标准错误信息都定向至/tmp/error.log中(以追加的方式进行流的重定向)
+#1为标准正确输出,2为标准错误输出,>为覆盖重定向,>>为追加重定向(但是使用2>$1这种方式时,一个>也表示追加的意思)
+#sudo touch /tmp/error.log
+#head -1 /etc/gag 1>>/tmp/error.log 2>>/tmp/error.log
+
+
+:<<EOF
+练习十二
+    如何只用echo 命令获取字符串变量的一部分,使用${str:start:length},其中start下标,字符串是从0开始的,shellzhong de substr函数
+EOF
+str="caozhennan"
+echo ${str:0:3}
