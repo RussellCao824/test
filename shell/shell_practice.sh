@@ -324,5 +324,152 @@ EOF
 练习十二
     如何只用echo 命令获取字符串变量的一部分,使用${str:start:length},其中start下标,字符串是从0开始的,shellzhong de substr函数
 EOF
-str="caozhennan"
-echo ${str:0:3}
+#str="caozhennan"
+#echo ${str:0:3}
+
+:<<EOF
+练习十二
+    如何开启子进程在后台运行shell脚本,不会在当前shell窗口形成堵塞,
+EOF
+#在一段bash脚本代码后紧跟&,该shell进程就会folk出子进程来实现对这段shell脚本进行后台处理,即异步处理
+#for i in `seq 1 500`
+#do
+#    echo $i
+#done&
+#
+#cat /etc/passwd
+
+
+:<<EOF
+练习十二
+    如果给定字符串 variable="User:123:321:/home/dir"，如何只用 echo 命令获取 home_dir ?
+EOF
+#variable="User:123:321:/home/dir"
+#echo ${variable:13:9}
+#echo ${variable:0:4}
+
+
+:<<EOF
+如何使用 awk 列出 UID 小于 100 的用户 ?
+EOF
+#awk和cut的区别.awk中能够实现简单的判断筛选逻辑
+#awk -F ':' '{if($3<100) print $1}' /etc/passwd
+
+#获取变量的长度
+#va="action"
+#echo ${#va}
+##注意一下两种用法的异同,第一种没有空格,则代表,若该变量之前声明过,则输出该变量,否则,输出4
+##第二种,有空格,输出该变量的倒数4个字符
+#echo ${va:-4}
+#echo ${va: -4}
+
+#如何计算本地用户数目 ?
+#wc -l /etc/passwd | awk -F ' ' '{print $1}'
+
+
+#怎样计算字符串中的单词数目(注意不是字符数目)
+#str="i am a student"
+#set ${str}
+#echo $#
+
+:<<EOF
+如何列出第二个字母是a或者b的文件
+EOF
+#shell中常用的正则匹配符
+#"?"匹配任何的单个字符(只能是单个)
+#"*"匹配任意多个字符
+#"[],[^]"分别表示范围匹配和去除范围匹配
+#"^"和"$"分别标示句首匹配和句尾匹配
+#一般的正则匹配串都应该放在"//"之中
+#ls -d /usr /?[ab]*/
+
+
+#如何列出第二个字母是 a 或 b 的文件 ?
+#a=100
+#b=50
+#c=$[$a+$b]
+#echo $c
+
+:<<EOF
+如何删除一个字符串中的所有指定字符
+EOF
+#echo "i am a student" | tr -d " "
+
+
+:<<EOF
+写出输出数字 0 到 100 中 3 的倍数(0 3 6 9 …)的命令
+EOF
+
+#for i in `seq 0 100`
+#do
+#    if(($[$i%3]==0))
+#    then
+#    echo $i
+#    fi
+#done
+
+
+#打印传递给脚本的所有参数以及参数个数的数目
+#IFS=" "
+#echo $@
+#echo "输入参数的个数为$#"
+
+:<<EOF
+ 写出测试 $a 是否大于 12 的命令
+EOF
+
+#a=10
+#if(($[$a<=12]))
+#then
+#echo "小于等于12"
+#else
+#echo "大于12"
+#fi
+
+
+
+#:<<EOF
+# 如何检查字符串是否以字母 "abc" 开头
+#EOF
+#
+#echo "bbc" | grep "^xy" && echo "匹配成功" || echo "匹配不成功"
+
+:<<EOF
+ 如何检查字符串是否以字母 "abc" 开头
+EOF
+
+#cut -d ":" -f 1 /etc/passwd  | grep "^n"
+
+#输出当前shell的Pid
+#echo $$
+
+
+:<<EOF
+ 如何在 bash 中定义数组
+EOF
+#
+#data=(1 2 3 4)
+##获取数组中的某个值
+#echo ${data[1]}
+##打印数组中的所有值
+#echo ${data[@]}
+##获取数组的长度
+#echo ${#data[@]}
+##获取数组所有元素的索引
+#echo ${!data[@]}
+##移除数组中某个索引对应的元素
+#unset data[1]
+#echo ${data[@]}
+##如何在数组中添加自定义索引的元素
+#data[10]=100
+#echo ${data[@]}
+
+:<<EOF
+ shell脚本如何获取输入的值
+EOF
+
+#1.使用参数输入
+#2,在脚本中使用read命令
+read -p "请输入姓名" name
+echo "您输入的姓名是$name"
+
