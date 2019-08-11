@@ -297,4 +297,4 @@ class TestFactory
 $factory = new TestFactory();
 $test = $factory->factory('B');
 $test->getInfo();
-echo 'tttttttt';
+echo 'tttt333';
